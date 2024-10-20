@@ -1,20 +1,115 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <ion-title>Crypto Converter</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Select Two Cryptocurrencies</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <!-- First cryptocurrency selection -->
+      <ion-item>
+        <ion-label>First Cryptocurrency</ion-label>
+        <ion-select
+          placeholder="Select"
+          [(ngModel)]="selectedCrypto1"
+          (ionChange)="onCryptoChange($event, 1)"
+        >
+          <ion-select-option value="bitcoin">Bitcoin (BTC)</ion-select-option>
+          <ion-select-option value="ethereum">Ethereum (ETH)</ion-select-option>
+          <ion-select-option value="litecoin">Litecoin (LTC)</ion-select-option>
+          <ion-select-option value="ripple">Ripple (XRP)</ion-select-option>
+          <ion-select-option value="cardano">Cardano (ADA)</ion-select-option>
+          <ion-select-option value="polkadot">Polkadot (DOT)</ion-select-option>
+          <ion-select-option value="dogecoin"
+            >Dogecoin (DOGE)</ion-select-option
+          >
+          <ion-select-option value="chainlink"
+            >Chainlink (LINK)</ion-select-option
+          >
+          <ion-select-option value="stellar">Stellar (XLM)</ion-select-option>
+          <ion-select-option value="bitcoin-cash"
+            >Bitcoin Cash (BCH)</ion-select-option
+          >
+          <!-- Add more options if desired -->
+        </ion-select>
+      </ion-item>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+      <!-- Input for the amount of the first cryptocurrency -->
+      <ion-item>
+        <ion-label position="floating"
+          >Amount of {{ selectedCrypto1 | titlecase }}</ion-label
+        >
+        <ion-input
+          type="number"
+          [(ngModel)]="amountCrypto1"
+          (ngModelChange)="onAmountChangeCrypto1()"
+          placeholder="Enter amount"
+        ></ion-input>
+      </ion-item>
+
+      <!-- Second cryptocurrency selection -->
+      <ion-item>
+        <ion-label>Second Cryptocurrency</ion-label>
+        <ion-select
+          placeholder="Select"
+          [(ngModel)]="selectedCrypto2"
+          (ionChange)="onCryptoChange($event, 2)"
+        >
+          <ion-select-option value="bitcoin">Bitcoin (BTC)</ion-select-option>
+          <ion-select-option value="ethereum">Ethereum (ETH)</ion-select-option>
+          <ion-select-option value="litecoin">Litecoin (LTC)</ion-select-option>
+          <ion-select-option value="ripple">Ripple (XRP)</ion-select-option>
+          <ion-select-option value="cardano">Cardano (ADA)</ion-select-option>
+          <ion-select-option value="polkadot">Polkadot (DOT)</ion-select-option>
+          <ion-select-option value="dogecoin"
+            >Dogecoin (DOGE)</ion-select-option
+          >
+          <ion-select-option value="chainlink"
+            >Chainlink (LINK)</ion-select-option
+          >
+          <ion-select-option value="stellar">Stellar (XLM)</ion-select-option>
+          <ion-select-option value="bitcoin-cash"
+            >Bitcoin Cash (BCH)</ion-select-option
+          >
+          <!-- Add more options if desired -->
+        </ion-select>
+      </ion-item>
+
+      <!-- Input for the amount of the second cryptocurrency -->
+      <ion-item>
+        <ion-label position="floating"
+          >Amount of {{ selectedCrypto2 | titlecase }}</ion-label
+        >
+        <ion-input
+          type="number"
+          [(ngModel)]="amountCrypto2"
+          (ngModelChange)="onAmountChangeCrypto2()"
+          placeholder="Enter amount"
+        ></ion-input>
+      </ion-item>
+
+      <!-- Display prices for both cryptocurrencies -->
+      <p>
+        1 {{ selectedCrypto1 | titlecase }}: {{ cryptoPrice1 | currency:'USD' }}
+      </p>
+      <p>
+        1 {{ selectedCrypto2 | titlecase }}: {{ cryptoPrice2 | currency:'USD' }}
+      </p>
+
+      <!-- Display the conversion based on the input amounts -->
+      <p>
+        {{ amountCrypto1 }} {{ selectedCrypto1 | titlecase }} = {{ amountCrypto2
+        | number: '1.2-6' }} {{ selectedCrypto2 | titlecase }}
+      </p>
+
+      <p>
+        {{ amountCrypto2 }} {{ selectedCrypto2 | titlecase }} = {{ amountCrypto1
+        | number: '1.2-6' }} {{ selectedCrypto1 | titlecase }}
+      </p>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
