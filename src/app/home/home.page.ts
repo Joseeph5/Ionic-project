@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { CryptoService } from '../crypto.service';
+import { CryptoService } from '../service/crypto.service';
+import { AuthService } from '../service/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +16,11 @@ export class HomePage implements OnInit {
   amountCrypto1: number = 1; // User input for amount of the first crypto (default is 1)
   amountCrypto2: number = 0; // Amount of the second cryptocurrency
 
-  constructor(private cryptoService: CryptoService) {}
+  constructor(
+    private cryptoService: CryptoService,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.getCryptoPrices();
@@ -59,6 +65,15 @@ export class HomePage implements OnInit {
     if (this.cryptoPrice1 && this.cryptoPrice2) {
       this.amountCrypto1 =
         (this.amountCrypto2 * this.cryptoPrice2) / this.cryptoPrice1;
+    }
+  }
+
+  async logout() {
+    try {
+      await this.authService.logout();
+      this.router.navigate(['/login']); // Redirect to login page after logout
+    } catch (error) {
+      console.error('Logout error', error);
     }
   }
 }
